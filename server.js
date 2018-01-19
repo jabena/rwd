@@ -6,7 +6,12 @@ var express = require('express'),
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
-app.use(morgan('combined'))
+app.use(morgan('combined'));
+app.use(function(){
+	['css', 'images', 'js', 'fonts', 'img'].forEach(function (dir){
+		app.use('/'+dir, express.static(__dirname+'/'+dir));
+	});
+});
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -91,11 +96,6 @@ app.get('/pagecount', function (req, res) {
     res.send('{ pageCount: -1 }');
   }
 });
-app.configure(function(){
-            ['css', 'images', 'js', 'fonts', 'img'].forEach(function (dir){
-                app.use('/'+dir, express.static(__dirname+'/'+dir));
-            });
-        });
 
 // error handling
 app.use(function(err, req, res, next){
