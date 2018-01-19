@@ -12,11 +12,12 @@ app.use(morgan('combined'));
 		app.use('/'+dir, express.static(__dirname+'/'+dir));
 	});
 });*/
-app.use(express.static('css'));
-app.use(express.static('images'));
-app.use(express.static('js'));
-app.use(express.static('fonts'));
-app.use(express.static('img'));
+
+app.use('/images', express.static(__dirname + '/images'));
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/js', express.static(__dirname + '/js'));
+app.use('/fonts', express.static(__dirname + '/fonts'));
+app.use('/img', express.static(__dirname + '/img'));
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
