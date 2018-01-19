@@ -7,11 +7,16 @@ Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'));
-app.use(function(){
+/*app.use(function(){
 	['css', 'images', 'js', 'fonts', 'img'].forEach(function (dir){
 		app.use('/'+dir, express.static(__dirname+'/'+dir));
 	});
-});
+});*/
+app.use(express.static('css'));
+app.use(express.static('images'));
+app.use(express.static('js'));
+app.use(express.static('fonts'));
+app.use(express.static('img'));
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
