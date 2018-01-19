@@ -91,6 +91,11 @@ app.get('/pagecount', function (req, res) {
     res.send('{ pageCount: -1 }');
   }
 });
+app.configure(function(){
+            ['css', 'images', 'js', 'fonts', 'img'].forEach(function (dir){
+                app.use('/'+dir, express.static(__dirname+'/'+dir));
+            });
+        });
 
 // error handling
 app.use(function(err, req, res, next){
